@@ -396,3 +396,11 @@ etcwilde:
   name: Evan Wilde
   email: ewilde@apple.com
   github: etcwilde
+
+rauhul:
+  name: Rauhul Varma
+  email: rauhul@apple.com
+  github: rauhul
+  about: "Rauhul Varma works on future product prototyping in the Platform Architecture team at Apple"
+  twitter: rauhulv
+  mastodon: "@rauhul@hachyderm.io"

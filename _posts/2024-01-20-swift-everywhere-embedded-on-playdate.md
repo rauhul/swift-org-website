@@ -30,9 +30,9 @@ Recently, the Swift project has been developing a new embedded language mode to 
 
 The embedded Swift language mode is actively evolving and available now in [nightly toolchains](https://www.swift.org/download/) and is helping drive the development of low-level language features such as: [noncopyable structs and enums](https://github.com/apple/swift-evolution/blob/main/proposals/0390-noncopyable-structs-and-enums.md), [typed throws](https://github.com/apple/swift-evolution/blob/main/proposals/0413-typed-throws.md), and more. This language mode imposes a few limitations and utilizes generic specialization, inlining, and dead code stripping to produce minimal statically linked binaries suitable for devices like the Playdate, while retaining the core features of desktop Swift.
 
-If you're curious to learn more about this language mode you can check out the accepted [Vision for Embedded Swift](https://github.com/apple/swift-evolution/blob/main/visions/embedded-swift.md).
+If you're curious to learn more about this language mode, you can check out the accepted [Vision for Embedded Swift](https://github.com/apple/swift-evolution/blob/main/visions/embedded-swift.md).
 
-Armed with the embedded Swift language mode I jumped in and started creating games for the Playdate.
+Armed with the embedded Swift language mode, I jumped in and started creating games for the Playdate.
 
 ## The Games
 
@@ -153,7 +153,7 @@ And used an "include search path" (`-I`) to tell the C compiler integrated insid
 $ swiftc ... -Xcc -I -Xcc $HOME/Developer/PlaydateSDK/C_API/ -Xcc -DTARGET_EXTENSION
 ```
 
-Next, I created a modulemap file to wrap the headers into an importable module from Swift:
+Next, I created a [module map file](https://clang.llvm.org/docs/Modules.html#module-maps) to wrap the headers into an importable module from Swift:
 
 ```console
 $ cat $HOME/Developer/PlaydateSDK/C_API/module.modulemap
@@ -192,7 +192,7 @@ test.o: Mach-O 64-bit object arm64
 
 ### Running on the Simulator
 
-Once I was able to compile embedded Swift and use the Playdate C API from Swift, I ported the Conway's Game of Life example included in the Playdate SDK to Swift. During the process, I referenced [Inside Playdate with C](https://sdk.play.date/2.2.0/Inside%20Playdate%20with%20C.html) frequently to familiarize myself with the C API. The implementation strictly operates on Playdate OS vended frame buffers and therefore doesn't need an allocator itself. This process was mostly mechanical, the bit manipulation and pointer operations used in the C example have direct Swift analogs which were easy to leverage.
+Once I was able to compile embedded Swift and use the Playdate C API from Swift, I ported the Conway's Game of Life example included in the Playdate SDK to Swift. During the process, I referenced [Inside Playdate with C](https://sdk.play.date/2.2.0/Inside%20Playdate%20with%20C.html) frequently to familiarize myself with the C API. The implementation strictly operates on Playdate OS vended frame buffers and therefore doesn't need an allocator itself. This process was mostly mechanical, the bit manipulation and pointer operations used in the C example have direct Swift analogs that were easy to leverage.
 
 I built the source into a dynamic library and used `pdc` (the Playdate compiler) to wrap the final `dylib` into a `pdx` (Playdate executable).
 
@@ -260,7 +260,7 @@ test.o: ELF 32-bit LSB relocatable, ARM, EABI5 version 1 (SYSV), not stripped
 
 The compile succeeded and I had an object file for the real hardware. I went through similar steps to link and package the object file into a `pdx`, using clang as the linker driver.
 
-I deployed the game onto a Playdate, and... it crashed. For some reason, when the frame update function pointer was called, the game would crash! Debugging this issue was confusing at first, but due to past experience deploying Swift onto a Cortex M7, I realized I had likely had a calling convention mismatch. I added an experimental flag to use a non-default LLVM calling convention `-Xfrontend -experimental-platform-c-calling-convention=arm_aapcs_vfp`.
+I deployed the game onto a Playdate, and... it crashed. For some reason, when the frame update function pointer was called, the game would crash! Debugging this issue was confusing at first, but due to past experience deploying Swift onto a Cortex M7, I realized I likely had a calling convention mismatch. I added a compiler flag `-Xfrontend -experimental-platform-c-calling-convention=arm_aapcs_vfp` to try to match the calling convention used by the Playdate OS.
 
 > Note: It would later turn out this flag did not actually resolve the underlying bug.
 

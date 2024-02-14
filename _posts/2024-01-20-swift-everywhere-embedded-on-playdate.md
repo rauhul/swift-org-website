@@ -22,7 +22,7 @@ These traits made me interested in using Swift for embedded systems where reliab
 
 Over the holiday season, I read about building games for Playdate in C and became curious if the same was possible with Swift. For those unfamiliar with Playdate, it is a tiny handheld game system built by Panic, creators of popular apps and games like "Transmit," "Nova," "Firewatch," "Untitled Goose Game," and more. It houses a Cortex M7 processor, a 400 by 240 1-bit display, and has a small runtime (Playdate OS) for hosting games. Panic provides an [SDK](https://play.date/dev/) for building games for Playdate in both C and Lua.
 
-While most Playdate games are written in Lua for ease of development, they can run into performance problems that necessitate the added complexity of using C. Swift's strong support for interoperating with C, high-level ergonomics with low-level performance, seem like a good match for the Playdate. However the typical Swift application and runtime exceed the tight resource constraints of the Playdate.
+While most Playdate games are written in Lua for ease of development, they can run into performance problems that necessitate the added complexity of using C. Swift's combination of high-level ergonomics with low-level performance, as well as its strong support for interoperating with C, seem like a good match for the Playdate. However, the typical Swift application and runtime exceed the tight resource constraints of the Playdate.
 
 ### The Embedded Language Mode
 

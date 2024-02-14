@@ -386,14 +386,12 @@ With these adjustments, I attempted once more, and _finally_ "Swift Break" succe
 
 ## Powered Up!
 
-// FIXME: Improve this conclusion
 
 Thanks for joining me on this journey; from refining the Swift Playdate API to tackling complex issues involving calling conventions, CPU configurations, and memory layout disparities, the process was both challenging and rewarding. 
 
-Now, with all the obstacles addressed, creating a game with Swift on the Playdate is a streamlined process. Just run `make` and let Swift shine with a development experience that is not only expressive but also performant. 
+Now, with all the obstacles addressed, creating a game with Swift on the Playdate is a streamlined process. All the code examples in this post can be found in the [swift-playdate-examples](https://github.com/apple/swift-playdate-examples) repository with accompanying getting started documentation. Run `make` and let Swift shine with a development experience that is not only expressive but also performant. 
 
 I hope this post encourages you to explore the possibilities of using Swift in unconventional environments. Feel free to reach out with your experiences, questions, or game ideas!
 
-One last time, the examples in this post can be found in the [swift-playdate-examples](https://github.com/apple/swift-playdate-examples) repository with accompanying getting started documentation.
 
 Happy coding! 🎮

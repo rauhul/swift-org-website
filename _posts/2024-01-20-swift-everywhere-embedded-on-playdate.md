@@ -12,11 +12,11 @@ I'm excited to share [swift-playdate-examples](https://github.com/apple/swift-pl
 
 ## Why Swift?
 
-// FIXME: Last sentence is a run-on
+Swift is widely known as the modern language for app development on Apple devices. However, over the course of its first decade, it has grown into a versatile, multi-platform language targeting use cases where you'd otherwise find C or C++. 
 
-Swift is widely known as the modern language for app development on Apple devices. However, over the course of its first decade, it has grown into a versatile, multi-platform language targeting use cases where you'd otherwise find C or C++. Swift's modern features, such as memory safety, a flexible type system, and static concurrency checking, improve code quality and correctness over C/C++.
+I had come to appreciate Swift's mix of memory safety and great ergonomics, and I wanted these benefits for embedded systems where reliability and security are critically important.
 
-These traits made me interested in using Swift for embedded systems where reliability and security are critically important, but that was not the only reason...
+It turns out embedded systems are found not only in serious mission-critical applications. Some of them actually are all fun and _games_.
 
 ### Playdate by Panic
 
@@ -56,7 +56,7 @@ The second game is a paddle-and-ball style game named "Swift Break."
 
 ![A screenshot of the Playdate Simulator with the Swift Break splash screen.](/assets/images/2023-01-20-swift-everywhere-embedded-on-playdate/playdate-simulator-still-swiftbreak.png)
 
-Swift Break uses high-level language features such as [enums with associated values](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/enumerations/#Associated-Values), [generic types and functions](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/generics), [extensions](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/extensions), and [automatic memory management](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/memorysafety) to simplify game development while retaining C-level performance.
+Swift Break uses the same high-level language features you'd find in desktop and server applications, such as [enums with associated values](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/enumerations/#Associated-Values), [generic types and functions](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/generics), and [automatic memory management](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/memorysafety) to simplify game development while retaining C-level performance.
 
 For example, here's the core game logic for handling ball bounces:
 
@@ -86,9 +86,7 @@ sprite.moveWithCollisions(goalX: newX, goalY: newY) { _, _, collisions in
 }
 ```
 
-// FIXME: This snippet feels just like idiomatic high-level code you'd find an in an iOS version of this game.
-
-It calls a `moveWithCollisions` method to move the ball to a target position and handles collisions in a callback, which iterates through a yielded collection of collisions handling the objects the ball bounced off while moving.
+It calls a `moveWithCollisions` method to move the ball, iterating through a collection of objects the ball bounced off of while moving.
 
 Swift Break features a splash screen, a pause menu, paddle-location-based bounce physics, infinite levels, a game over screen, and allows you to control the paddle with either the D-Pad or the Crank!
 
@@ -119,7 +117,7 @@ Without further ado, let's get started.
 
 > Note: The commands mentioned below were run with a Swift nightly toolchain installed and have the `TOOLCHAINS` environment variable set to the name of the toolchain.
 
-My first step was compiling an object file for the Playdate Simulator. The simulator works by dynamically loading host libraries, so I needed to build the object files for the host triple, which `swiftc` does by default. The only additional flags I needed were for enabling embedded Swift and code optimizations.
+My first step was compiling an object file for the Playdate Simulator. The simulator works by dynamically loading host libraries, so I needed to build the object files for the host's platform and architecture (the so-called *triple* in compiler-speak), which `swiftc` does by default. The only additional flags I needed were for enabling embedded Swift and code optimizations.
 
 ```shell
 $ cat test.swift
@@ -365,7 +363,7 @@ These improvements dramatically streamlined code writing for the Playdate. Addit
 
 Equipped with a refined Swift Playdate API, I returned to developing Swift Break.
 
-Building Swift Break was really enjoyable, and I couldn't resist adding extra features just for the fun of it. One of the highlights was implementing basic logic to deflect ball bounces based on the location where the ball hit the paddle.
+I couldn't resist adding extra features just for the fun of it. One of the highlights was implementing basic logic to deflect ball bounces based on the location where the ball hit the paddle.
 
 This feature required calculating a normal vector relative to a hypothetical curve representing a rounded paddle and then reflecting the ball's velocity about the normal. Here's a visualization of the intended behavior:
 
@@ -373,13 +371,15 @@ This feature required calculating a normal vector relative to a hypothetical cur
 
 > Note: Making the animation for this post ironically helped me root cause a bug in the bouncing logic. Under some combinations of entry angle and normal angle, the current design can cause the ball to bounce _down_ into the paddle instead of up.
 
-Thanks to Swift's syntax the code is easy to read and powerful! In the ball collision callback:
+To turn the math into an algorithm, I had to perform the following steps:
 
-1. We check if the object the ball collided with is the paddle
-2. We compute the location of the collision along the paddle from -1 to +1
-3. We map the location into a deflection angle from from -π/6 to +π/6
-4. We rotate the collision normal vector by the deflection angle
-5. Finally, we reflect the ball's velocity along the rotated normal
+1. Check if the object the ball collided with is the paddle
+2. Compute the location of the collision along the paddle from -1 to +1
+3. Map the location into a deflection angle from from -π/6 to +π/6
+4. Rotate the collision normal vector by the deflection angle
+5. Reflect the ball's velocity along the rotated normal
+
+I then directly translated this algorithm into code inside the ball collision callback:
 
 ```swift
 if otherSprite.tag == .paddle {                                // 1
@@ -390,9 +390,9 @@ if otherSprite.tag == .paddle {                                // 1
 ballVelocity.reflect(along: normal)                            // 5
 ```
 
----
+Thanks to Swift's syntax the code is easy to read and powerful! 
 
-// FIXME: transition
+### Running on the Hardware (Again!)
 
 Throughout the development of "Swift Break," I regularly deployed the game to the Playdate Simulator. However, the real challenge emerged when I decided to run the game on actual Playdate hardware. As usual, I loaded the game, and ... yet again, it crashed, but this time a lot of things were going wrong.
 
@@ -436,6 +436,6 @@ Thanks for joining me on this journey; from refining the Swift Playdate API to t
 
 Now, with the obstacles addressed, creating a game with Swift on the Playdate is a streamlined process. All the code examples in this post can be found in the [swift-playdate-examples](https://github.com/apple/swift-playdate-examples) repository with accompanying "Getting Started" documentation. Run `make` and let Swift shine with a development experience that is not only expressive but also performant.
 
-I hope this post encourages you to explore the possibilities of using Swift in unconventional environments. Feel free to reach out with your experiences, questions, or game ideas!
+I hope this post encourages you to explore the possibilities of using Swift in unconventional environments. Feel free to reach out with your experiences, questions, or game ideas on the [Swift Forums](https://forums.swift.org)!
 
 Happy coding! 🎮

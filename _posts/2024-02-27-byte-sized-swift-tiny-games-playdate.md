@@ -1,14 +1,14 @@
 ---
 layout: post
 published: true
-date: 2024-02-13 10:00:00
+date: 2024-02-27 10:00:00
 title: "Byte-sized Swift: Building Tiny Games for the Playdate"
 author: [rauhul]
 ---
 
 I'm excited to share [swift-playdate-examples](https://github.com/apple/swift-playdate-examples), a technical demonstration of using Swift to build games for [Playdate](https://play.date/), a handheld game system by [Panic](https://panic.com).
 
-![A screencapture of Swift Break running on Playdate hardware mirrored to a Mac.](/assets/images/2023-01-20-swift-everywhere-embedded-on-playdate/playdate-mirror-video-swiftbreak.mp4){: style="border-radius: 15px;"}
+![A screencapture of Swift Break running on Playdate hardware mirrored to a Mac.](/assets/images/2024-02-27-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-swiftbreak.mp4){: style="border-radius: 15px;"}
 
 ## Why Swift?
 
@@ -38,7 +38,7 @@ Armed with the embedded Swift language mode, I jumped in and started creating ga
 
 I wrote two small games in Swift for the Playdate. The first game is a port of the Playdate SDK sample of [Conway’s Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) into Swift:
 
-![A screenshot of the Playdate Simulator running Conway’s Game of Life.](/assets/images/2023-01-20-swift-everywhere-embedded-on-playdate/playdate-simulator-still-life.png)
+![A screenshot of the Playdate Simulator running Conway’s Game of Life.](/assets/images/2024-02-27-byte-sized-swift-tiny-games-playdate/playdate-simulator-still-life.png)
 
 This game is one Swift file that builds directly against the Playdate C API and does not require dynamic memory allocation. The packaged game clocks in at 788 bytes, slightly smaller than the C example, which is 904 bytes.
 
@@ -54,7 +54,7 @@ $ wc -c < $HOME/Developer/PlaydateSDK/C_API/Examples/GameOfLife.pdx/pdex.bin
 
 The second game is a paddle-and-ball style game named "Swift Break."
 
-![A screenshot of the Playdate Simulator with the Swift Break splash screen.](/assets/images/2023-01-20-swift-everywhere-embedded-on-playdate/playdate-simulator-still-swiftbreak.png)
+![A screenshot of the Playdate Simulator with the Swift Break splash screen.](/assets/images/2024-02-27-byte-sized-swift-tiny-games-playdate/playdate-simulator-still-swiftbreak.png)
 
 Swift Break uses the same high-level language features you'd find in desktop and server applications, such as [enums with associated values](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/enumerations/#Associated-Values), [generic types and functions](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/generics), and [automatic memory management](https://docs.swift.org/swift-book/documentation/the-swift-programming-language/memorysafety) to simplify game development while retaining C-level performance.
 
@@ -296,7 +296,7 @@ For some reason, when the frame-update function pointer was called, the game wou
 
 Once again, I deployed my game to the Playdate and ... it actually worked! You can see the game in action below:
 
-![A video of Conway's Game of Life running on Playdate hardware mirrored to a Mac.](/assets/images/2023-01-20-swift-everywhere-embedded-on-playdate/playdate-mirror-video-life.mp4){: style="border-radius: 15px;"}
+![A video of Conway's Game of Life running on Playdate hardware mirrored to a Mac.](/assets/images/2024-02-27-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-life.mp4){: style="border-radius: 15px;"}
 
 I then worked to integrate my manual compilation steps into the Makefiles found in the Playdate SDK. I went through a number of iterations before landing on the final solution found in `swift-playdate-examples`. The result of this effort was a single `make` command to build a `pdx` compatible with both the simulator and hardware!
 
@@ -367,7 +367,7 @@ I couldn't resist adding extra features just for the fun of it. One of the highl
 
 This feature required calculating a normal vector relative to a hypothetical curve representing a rounded paddle and then reflecting the ball's velocity about the normal. Here's a visualization of the intended behavior:
 
-![A Desmos geometric animation of Swift Break ball bouncing logic.](/assets/images/2023-01-20-swift-everywhere-embedded-on-playdate/desmos-ball-bounce.mp4){: style="border-radius: 15px;"}
+![A Desmos geometric animation of Swift Break ball bouncing logic.](/assets/images/2024-02-27-byte-sized-swift-tiny-games-playdate/desmos-ball-bounce.mp4){: style="border-radius: 15px;"}
 
 > Note: Making the animation for this post ironically helped me root cause a bug in the bouncing logic. Under some combinations of entry angle and normal angle, the current design can cause the ball to bounce _down_ into the paddle instead of up.
 
@@ -428,7 +428,7 @@ $ swiftc \
 
 With these adjustments, I attempted once more, and _finally_ "Swift Break" successfully ran on the Playdate hardware! I've included a brief video showcasing the game below:
 
-![A video of Swift Break running on Playdate hardware mirrored to a Mac.](/assets/images/2023-01-20-swift-everywhere-embedded-on-playdate/playdate-mirror-video-swiftbreak.mp4){: style="border-radius: 15px;"}
+![A video of Swift Break running on Playdate hardware mirrored to a Mac.](/assets/images/2024-02-27-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-swiftbreak.mp4){: style="border-radius: 15px;"}
 
 ## Conclusion
 

@@ -102,7 +102,7 @@ But if you're up for a deep dive into the technical details of what it takes to 
 
 ## Deep Dive: Bringing Swift to the Playdate
 
-Bringing up a new platform is always fraught with challenges and infuriating bugs; everything is broken with numerous false starts, until you clear the last bug and it all comes together. Getting Swift games running on the Playdate was no different.
+Bringing up a new platform is always fraught with challenges and infuriating bugs. Everything is broken with numerous false starts, until you clear the last bug, and then it all comes together. Getting Swift games running on the Playdate was no different.
 
 My general approach was to leverage Swift's interoperability to build on top of the Playdate C SDK. The good news is that the Swift toolchain already had all the features I needed to get this working. I just had to figure out how to put them together. Here's an overview of the path I took:
 
@@ -296,7 +296,7 @@ Once again, I deployed my game to the Playdate and ... it actually worked! You c
 
 ![A video of Conway's Game of Life running on Playdate hardware mirrored to a Mac.](/assets/images/2024-02-27-byte-sized-swift-tiny-games-playdate/playdate-mirror-video-life.mp4){: style="border-radius: 15px;"}
 
-I then integrated my manual compilation steps into the Makefiles found in the Playdate SDK, going through a options before landing on the final solution found in `swift-playdate-examples`. The result of this effort was a single `make` command to build a `pdx` compatible with both the simulator and hardware!
+I then integrated my manual compilation steps into the Makefiles found in the Playdate SDK, going through a number of options before landing on the final solution found in `swift-playdate-examples`. The result of this effort was a single `make` command to build a `pdx` compatible with both the simulator and hardware!
 
 ### Improving the API with Swift
 

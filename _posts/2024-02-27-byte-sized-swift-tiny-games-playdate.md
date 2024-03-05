@@ -12,9 +12,9 @@ I'm excited to share [swift-playdate-examples](https://github.com/apple/swift-pl
 
 ## Why Swift?
 
-Swift is widely known as the modern language for app development on Apple devices. However, over the course of its first decade, it has grown into a versatile, multi-platform language targeting use cases where you'd otherwise find C or C++. 
+Swift is widely known as the modern language for app development on Apple devices. However, over the course of its first decade, it has grown into a versatile, multi-platform language targeting use cases where you'd otherwise find C or C++.
 
-Personally, I have come to appreciate Swift's emphasis on memory safety and great ergonomics, and want these traits for embedded systems where reliability and security are critically important. 
+Personally, I have come to appreciate Swift's emphasis on memory safety and great ergonomics, and want these traits for embedded systems where reliability and security are critically important.
 
 But embedded systems are not only found in mission-critical applications. Some are actually all fun and _games_.
 
@@ -386,7 +386,7 @@ if otherSprite.tag == .paddle {                                // 1
   normal.rotate(by: deflectionAngle)                           // 4
 }
 ballVelocity.reflect(along: normal)                            // 5
-``` 
+```
 
 ### Running on the Hardware (Again!)
 
@@ -432,7 +432,7 @@ Thanks for diving into the bring-up journey with me. From refining the Swift Pla
 
 However, with the issues now resolved, creating a Playdate game in Swift is a streamlined process. Just run `make` and enjoy a development experience with Swift that is both expressive _and_ performant.
 
-You can find all the code examples mentioned in this post in the [swift-playdate-examples](https://github.com/apple/swift-playdate-examples) repository with accompanying "Getting Started" documentation. 
+You can find all the code examples mentioned in this post in the [swift-playdate-examples](https://github.com/apple/swift-playdate-examples) repository with accompanying "Getting Started" documentation.
 
 I hope this post encourages you to explore the possibilities of using Swift in unconventional environments. Feel free to reach out with your experiences, questions, or game ideas on the [Swift Forums](https://forums.swift.org)!
 

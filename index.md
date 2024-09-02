@@ -20,43 +20,41 @@ atom: true
   <p>Get ready for the Swift 6 language mode with the <a href="https://www.swift.org/migration/">official migration guide</a></p>
 </div>
 
-<div class="link-grid">
-  <ul>
-    <li>
-      <a href="/install">
-        <div class="flex-container">
-          <div class="latest-release-container">
-          <span>
-            {{ site.data.builds.swift_releases.last.name }}
-          </span>
-          </div>
-          Latest release
+<ul class="grid-level-0 grid-layout-link-grid link-grid">
+  <li class="grid-level-1 selectable">
+    <a href="/install">
+      <div class="flex-container">
+        <div class="latest-release-container">
+        <span>
+          {{ site.data.builds.swift_releases.last.name }}
+        </span>
         </div>
-      </a>
-    </li>
+        Latest release
+      </div>
+    </a>
+  </li>
 
-    <li>
-      <a href="/getting-started">
-        <img src="/assets/images/landing-page/signs.svg" />
-        Get started
-      </a>
-    </li>
+  <li class="grid-level-1 selectable">
+    <a href="/getting-started">
+      <img src="/assets/images/landing-page/signs.svg" />
+      Get started
+    </a>
+  </li>
 
-    <li>
-      <a href="/documentation">
-        <img src="/assets/images/landing-page/book.svg" />
-        Read the docs
-      </a>
-    </li>
+  <li class="grid-level-1 selectable">
+    <a href="/documentation">
+      <img src="/assets/images/landing-page/book.svg" />
+      Read the docs
+    </a>
+  </li>
 
-    <li>
-      <a href="/packages">
-        <img src="/assets/images/landing-page/box.svg" />
-        Explore packages
-      </a>
-    </li>
-  </ul>
-</div>
+  <li class="grid-level-1 selectable">
+    <a href="/packages">
+      <img src="/assets/images/landing-page/box.svg" />
+      Explore packages
+    </a>
+  </li>
+</ul>
 
 ## Use Cases
 
